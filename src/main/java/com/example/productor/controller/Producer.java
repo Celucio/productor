@@ -3,6 +3,7 @@ package com.example.productor.controller;
 import com.example.productor.modelo.Message;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,9 @@ public class Producer {
     private DirectExchange exchange;
     @Autowired
     private FanoutExchange fanoutExchange;
+
+    @Autowired
+    private TopicExchange topicExchange;
 
     @PostMapping("/post")
     public String send(@RequestBody Message message){
@@ -45,6 +49,13 @@ public class Producer {
         rabbitTemplate.convertAndSend(fanoutExchange.getName(),"", message);
         return "Message send successfully broadcast";
     }
+
+    @PostMapping("/postAT")
+    public String sendATopic(@RequestBody Message message){
+        rabbitTemplate.convertAndSend(topicExchange.getName(),"routing.A", message);
+        return "Message send successfully broadcast";
+    }
+
 
 
 }

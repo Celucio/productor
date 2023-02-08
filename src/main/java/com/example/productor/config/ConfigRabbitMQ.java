@@ -54,6 +54,11 @@ public class ConfigRabbitMQ {
     }
 
     @Bean
+    TopicExchange topicExchange(){
+        return new TopicExchange("exchange.topic");
+    }
+
+    @Bean
     Binding bindingA(Queue queueA, DirectExchange exchange){
         return BindingBuilder.bind(queueA).to(exchange).with(ROUTING_A);
     }
@@ -83,6 +88,16 @@ public class ConfigRabbitMQ {
     Binding bindingFanoutB(Queue queueB, FanoutExchange fanoutExchange){
         return BindingBuilder.bind(queueB).to(fanoutExchange);
     }
+    //Exchange Topic
+    @Bean
+    Binding bindingTopicA(Queue queueA, TopicExchange topicExchange){
+        return BindingBuilder.bind(queueA).to(topicExchange).with(ROUTING_A);
+    }
+    @Bean
+    Binding bindingTopicB(Queue queueB, TopicExchange topicExchange){
+        return BindingBuilder.bind(queueB).to(topicExchange).with(ROUTING_B);
+    }
+
     /*
     @Bean
     Binding bindingFanoutC(Queue queueC, FanoutExchange fanoutExchange){

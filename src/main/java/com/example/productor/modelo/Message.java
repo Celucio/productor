@@ -9,7 +9,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Message {
-
     private int id;
-    private String name;
+    private String nombre;
+    private String apellido;
 }
