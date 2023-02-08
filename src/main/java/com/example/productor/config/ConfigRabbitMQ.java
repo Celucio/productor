@@ -15,6 +15,8 @@ public class ConfigRabbitMQ {
     public static final String QUEUE_B = "queue.B";
     public static final String ROUTING_A = "routing.A";
     public static final String ROUTING_B = "routing.B";
+    public static final String QUEUE_ALL = "queue.ALL";
+
     /*
     public static final String QUEUE_C = "queue.C";
     public static final String QUEUE_D = "queue.D";
@@ -30,6 +32,11 @@ public class ConfigRabbitMQ {
     @Bean
     Queue queueB(){
         return new Queue(QUEUE_B, false);
+    }
+
+    @Bean
+    Queue queueAll(){
+        return new Queue(QUEUE_ALL, false);
     }
     /*
     @Bean
@@ -56,6 +63,11 @@ public class ConfigRabbitMQ {
     @Bean
     TopicExchange topicExchange(){
         return new TopicExchange("exchange.topic");
+    }
+
+    @Bean
+    HeadersExchange headersExchange(){
+        return new HeadersExchange("exchange.header");
     }
 
     @Bean
@@ -97,6 +109,12 @@ public class ConfigRabbitMQ {
     Binding bindingTopicB(Queue queueB, TopicExchange topicExchange){
         return BindingBuilder.bind(queueB).to(topicExchange).with(ROUTING_B);
     }
+
+    @Bean
+    Binding bindingTopicAll(Queue queueAll, TopicExchange topicExchange){
+        return BindingBuilder.bind(queueAll).to(topicExchange).with("routing.*");
+    }
+
 
     /*
     @Bean

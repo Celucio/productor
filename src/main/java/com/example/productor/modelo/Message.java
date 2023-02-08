@@ -12,4 +12,5 @@ public class Message {
     private int id;
     private String nombre;
     private String apellido;
+    private String pedido;
 }

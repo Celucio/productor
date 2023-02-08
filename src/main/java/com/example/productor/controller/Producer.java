@@ -53,7 +53,19 @@ public class Producer {
     @PostMapping("/postAT")
     public String sendATopic(@RequestBody Message message){
         rabbitTemplate.convertAndSend(topicExchange.getName(),"routing.A", message);
-        return "Message send successfully broadcast";
+        return "Message send successfully topic A";
+    }
+
+    @PostMapping("/postBT")
+    public String sendBTopic(@RequestBody Message message){
+        rabbitTemplate.convertAndSend(topicExchange.getName(),"routing.B", message);
+        return "Message send successfully topic B";
+    }
+
+    @PostMapping("/postALLT")
+    public String sendALLTopic(@RequestBody Message message){
+        rabbitTemplate.convertAndSend(topicExchange.getName(),"routing.*", message);
+        return "Message send successfully topic ALL";
     }
 
 
