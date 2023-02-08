@@ -16,7 +16,7 @@ public class ConfigRabbitMQ {
     public static final String ROUTING_A = "routing.A";
     public static final String ROUTING_B = "routing.B";
     public static final String QUEUE_ALL = "queue.ALL";
-
+    public static final String ROUTING_ALL = "routing.ALL";
     /*
     public static final String QUEUE_C = "queue.C";
     public static final String QUEUE_D = "queue.D";
@@ -112,7 +112,7 @@ public class ConfigRabbitMQ {
 
     @Bean
     Binding bindingTopicAll(Queue queueAll, TopicExchange topicExchange){
-        return BindingBuilder.bind(queueAll).to(topicExchange).with("routing.*");
+        return BindingBuilder.bind(queueAll).to(topicExchange).with(ROUTING_ALL);
     }
 
 
