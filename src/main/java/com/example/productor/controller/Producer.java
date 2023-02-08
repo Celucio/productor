@@ -17,6 +17,7 @@ public class Producer {
     private DirectExchange exchange;
     @Autowired
     private FanoutExchange fanoutExchange;
+
     @PostMapping("/post")
     public String send(@RequestBody Message message){
         rabbitTemplate.convertAndSend(exchange.getName(), "routing.A", message);
@@ -27,6 +28,18 @@ public class Producer {
         rabbitTemplate.convertAndSend(exchange.getName(), "routing.B", message);
         return "Message send successfully";
     }
+    /*
+    @PostMapping("/postC")
+    public String sendC(@RequestBody Message message){
+        rabbitTemplate.convertAndSend(exchange.getName(), "routing.C", message);
+        return "Message send successfully";
+    }
+    @PostMapping("/postD")
+    public String sendD(@RequestBody Message message){
+        rabbitTemplate.convertAndSend(exchange.getName(), "routing.D", message);
+        return "Message send successfully";
+    }
+    */
     @PostMapping("/broadcast")
     public String sendMasivo(@RequestBody Message message){
         rabbitTemplate.convertAndSend(fanoutExchange.getName(),"", message);
